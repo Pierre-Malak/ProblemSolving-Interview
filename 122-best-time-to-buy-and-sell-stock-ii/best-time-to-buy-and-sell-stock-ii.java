@@ -5,9 +5,11 @@ class Solution {
         for(int i=0;i<prices.length-1;i++){
             int firstDay = prices[i];
             int lastDay = prices[i+1];
-            int calcualtedProfit = this.profitCalculator(firstDay,lastDay);
-            if(calcualtedProfit>0){
-                profit += calcualtedProfit;
+            if(firstDay<lastDay){
+                int calcualtedProfit = this.profitCalculator(firstDay,lastDay);
+                if(calcualtedProfit>0){
+                    profit += calcualtedProfit;
+                }
             }
         }
         return profit;
