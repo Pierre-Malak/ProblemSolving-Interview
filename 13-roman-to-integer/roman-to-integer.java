@@ -2,30 +2,46 @@ import java.util.HashMap;
 import java.util.Map;
 class Solution {
     public int romanToInt(String s) {
-        // Map to store Roman numeral values
-        HashMap<Character, Integer> romanValues = new HashMap<>();
-        romanValues.put('I', 1);
-        romanValues.put('V', 5);
-        romanValues.put('X', 10);
-        romanValues.put('L', 50);
-        romanValues.put('C', 100);
-        romanValues.put('D', 500);
-        romanValues.put('M', 1000);
-
-        int total = 0;
-        int prevValue = 0;
-        
-        for (int i = s.length() - 1; i >= 0; i--) {
-            char currentChar = s.charAt(i);
-            int currentValue = romanValues.get(currentChar);
-            if (currentValue < prevValue) {
-                total -= currentValue;
+     char[] romanChars = s.toCharArray();
+        int response = 0;
+        int previousNumber = 0;
+        for(int i = romanChars.length - 1; i >= 0; i--) {
+            int currentNumber = convertRomanToInt(romanChars[i]);
+            if(currentNumber >= previousNumber) {
+                response += currentNumber;
             } else {
-                total += currentValue;
+                response -= currentNumber;
             }
-            prevValue = currentValue;
+            previousNumber = currentNumber;
         }
+        return response;
+    }
 
-        return total;
+    public int convertRomanToInt(char roman) {
+        int response = 0;
+        switch(roman) {
+            case 'I' -> {
+                response = 1;
+            }
+            case 'V' -> {
+                response = 5;
+            }
+            case 'X' -> {
+                response = 10;
+            }
+            case 'L' -> {
+                response = 50;
+            }
+            case 'C' -> {
+                response = 100;
+            }
+            case 'D' -> {
+                response = 500;
+            }
+            case 'M' -> {
+                response = 1000;
+            }
+        }
+        return response;
     }
 }
