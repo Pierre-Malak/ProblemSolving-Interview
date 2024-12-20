@@ -2,66 +2,30 @@ import java.util.HashMap;
 import java.util.Map;
 class Solution {
     public int romanToInt(String s) {
-        int res = 0;
-        int x = 0;
-        int i = s.length() - 1;
+        // Map to store Roman numeral values
+        HashMap<Character, Integer> romanValues = new HashMap<>();
+        romanValues.put('I', 1);
+        romanValues.put('V', 5);
+        romanValues.put('X', 10);
+        romanValues.put('L', 50);
+        romanValues.put('C', 100);
+        romanValues.put('D', 500);
+        romanValues.put('M', 1000);
+
+        int total = 0;
+        int prevValue = 0;
         
-        while (i >= 0) {
-            if (s.charAt(i) == 'I') {
-                x = 1;
-                i--;
-            } else if (s.charAt(i) == 'V') {
-                if (i - 1 >= 0 && s.charAt(i - 1) == 'I') {
-                    x = 4;
-                    i -= 2;
-                } else {
-                    x = 5;
-                    i--;
-                }
-            } else if (s.charAt(i) == 'X') {
-                if (i - 1 >= 0 && s.charAt(i - 1) == 'I') {
-                    x = 9;
-                    i -= 2;
-                } else {
-                    x = 10;
-                    i--;
-                }
-            } else if (s.charAt(i) == 'L') {
-                if (i - 1 >= 0 && s.charAt(i - 1) == 'X') {
-                    x = 40;
-                    i -= 2;
-                } else {
-                    x = 50;
-                    i--;
-                }
-            } else if (s.charAt(i) == 'C') {
-                if (i - 1 >= 0 && s.charAt(i - 1) == 'X') {
-                    x = 90;
-                    i -= 2;
-                } else {
-                    x = 100;
-                    i--;
-                }
-            } else if (s.charAt(i) == 'D') {
-                if (i - 1 >= 0 && s.charAt(i - 1) == 'C') {
-                    x = 400;
-                    i -= 2;
-                } else {
-                    x = 500;
-                    i--;
-                }
-            } else if (s.charAt(i) == 'M') {
-                if (i - 1 >= 0 && s.charAt(i - 1) == 'C') {
-                    x = 900;
-                    i -= 2;
-                } else {
-                    x = 1000;
-                    i--;
-                }
+        for (int i = s.length() - 1; i >= 0; i--) {
+            char currentChar = s.charAt(i);
+            int currentValue = romanValues.get(currentChar);
+            if (currentValue < prevValue) {
+                total -= currentValue;
+            } else {
+                total += currentValue;
             }
-            res += x;
+            prevValue = currentValue;
         }
-        
-        return res;
+
+        return total;
     }
 }
