@@ -7,20 +7,18 @@ import java.util.ArrayList;
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
 
-        HashMap<String, List<String>> map = new HashMap<>();
+      Map<String, List<String>> map = new HashMap<>();
 
-        for (String word : strs) {
-            char[] chars = word.toCharArray(); // Convert String to char array
-            Arrays.sort(chars); // Sort the char array
-            String sortedWord = new String(chars);
+        for (String str : strs) {
+            char[]charArray = str.toCharArray();
+            Arrays.sort(charArray);  // Sort characters in the string
+            String sortedStr = new String(charArray); // Create a sorted string key
 
-            if (!map.containsKey(sortedWord)) {
-                map.put(sortedWord, new ArrayList<>());
-            }
-            map.get(sortedWord).add(word);
+            map.computeIfAbsent(sortedStr, k -> new ArrayList<>()).add(str);
         }
 
         return new ArrayList<>(map.values());
     }
+    
 
 }
