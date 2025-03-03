@@ -6,25 +6,13 @@ import java.util.ArrayList;
 
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
-
-       Map<String, List<String>> map = new HashMap<>();
-        
-        for (String str : strs) {
-            int[] charCount = new int[26];
-            for (char c : str.toCharArray()) {
-                charCount[c - 'a']++;
-            }
-            StringBuilder sb = new StringBuilder();
-            for (int count : charCount) {
-                sb.append('#');
-                sb.append(count);
-            }
-            String key = sb.toString();
-            map.computeIfAbsent(key, k -> new ArrayList<>()).add(str);
-        }
-        
-        return new ArrayList<>(map.values());
+    Map<String, List<String>> map = new HashMap<>(); 
+    for (String str : strs) { 
+        char[]charArray = str.toCharArray(); Arrays.sort(charArray); // Sort characters in the string 
+    String sortedStr = new String(charArray); // Create a sorted string key 
+    map.computeIfAbsent(sortedStr, k -> new ArrayList<>()).add(str);
+    } return new ArrayList<>(map.values()); 
     }
-    
+        
 
 }
