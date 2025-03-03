@@ -7,17 +7,22 @@ import java.util.ArrayList;
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
 
-      Map<String, List<String>> map = new HashMap<>();
-
-      for (String str : strs) {
+       Map<String, List<String>> map = new HashMap<>();
+        
+        for (String str : strs) {
             int[] charCount = new int[26];
             for (char c : str.toCharArray()) {
-                charCount[c-'a']++;
+                charCount[c - 'a']++;
             }
-            String charCountString = Arrays.toString(charCount);
-            map.computeIfAbsent(charCountString,k-> new ArrayList<>()).add(str);
-            
+            StringBuilder sb = new StringBuilder();
+            for (int count : charCount) {
+                sb.append('#');
+                sb.append(count);
+            }
+            String key = sb.toString();
+            map.computeIfAbsent(key, k -> new ArrayList<>()).add(str);
         }
+        
         return new ArrayList<>(map.values());
     }
     
