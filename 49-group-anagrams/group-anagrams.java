@@ -9,14 +9,15 @@ class Solution {
 
       Map<String, List<String>> map = new HashMap<>();
 
-        for (String str : strs) {
-            char[]charArray = str.toCharArray();
-            Arrays.sort(charArray);  // Sort characters in the string
-            String sortedStr = new String(charArray); // Create a sorted string key
-
-            map.computeIfAbsent(sortedStr, k -> new ArrayList<>()).add(str);
+      for (String str : strs) {
+            int[] charCount = new int[26];
+            for (char c : str.toCharArray()) {
+                charCount[c-'a']++;
+            }
+            String charCountString = Arrays.toString(charCount);
+            map.computeIfAbsent(charCountString,k-> new ArrayList<>()).add(str);
+            
         }
-
         return new ArrayList<>(map.values());
     }
     
