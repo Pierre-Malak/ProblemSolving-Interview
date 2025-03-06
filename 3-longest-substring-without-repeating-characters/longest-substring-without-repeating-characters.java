@@ -15,11 +15,9 @@ class Solution {
 
             }
             set.add(s.charAt(secondPointer));
-            maxLength = Math.max(maxLength, set.size());
+            maxLength = Math.max(maxLength,secondPointer - firstPointer+1);
 
         }
         return maxLength;
-
-
     }
 }
